@@ -14,7 +14,12 @@
 						<!-- Basic layout-->
 						<div class="card">
 							<div class="card-header header-elements-inline">
-								<h5 class="card-title">Basic layout</h5>
+								<h5 class="card-title">Basic layout
+								<span><a href="<?php echo base_url(); ?>Main/user_details" type="button">User Details</a></span>
+								<span><a href="<?php echo base_url(); ?>Main/user_details" type="button">Users limit</a></span>
+
+							</h5>
+								
 								<span><?php echo $message ; ?></span>
 							</div>
 
@@ -23,6 +28,11 @@
 									<div class="form-group">
 										<label>Name</label>
 										<input type="text" name="name" class="form-control">
+									</div>
+
+									<div class="form-group">
+										<label>Product Name</label>
+										<input type="text" name="p_name" class="form-control">
 									</div>
 
 									<div class="form-group">

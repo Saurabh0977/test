@@ -21,13 +21,22 @@ class Main extends CI_Controller {
 	public function index()
 	{
 		$data['message'] = "";
-		$this->load->view('form_view' , $data);
+		$this->load->view('program_view' , $data);
 	}
+
+	public function user_details()
+	{
+
+		$this->load->model('model_user');
+		$data['user'] = $this->model_user->fetch_user_details();
+		$this->load->view('users_list' ,$data);
+	}
+	
 
 	public function create_user()
 	{
 		$name = $this->input->post('name');
-
+		$p_name = $this->input->post('p_name');
 	/*****************  Code For Uploading Multiple Images ****************/
 
 		 $name_array = array();
@@ -94,7 +103,9 @@ class Main extends CI_Controller {
 	/*****************  Saving Into database code for Multiple Image *********************/		
 
 			$this->load->model('model_user');
-			$this->model_user->create_user($name,$names);
+			$userid = $this->model_user->create_user($name,$names);
+
+			$this->model_user->product_details($userid,$p_name);
 			$data['message'] = "<strong>Data has Been inserted Succesfully</Strong>";
 			$this->load->view('form_view' , $data);
 
@@ -174,6 +185,11 @@ class Main extends CI_Controller {
 </body>
 </html>";
  } 
+
+ public function database_queries()
+ {
+	 $this->load->view('database_value_view');
+ }
 
 
 }
