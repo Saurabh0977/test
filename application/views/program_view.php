@@ -46,9 +46,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 */
 ?>
 
-<!-- Program to print 1 to 100 without any loop -->
+<!---------------- Program to print 1 to 100 without any loop ------------------>
 <?php
-
+/*
 print_number(1);
 function print_number($num){
 echo $num;
@@ -56,16 +56,59 @@ if($num == 100)
 return ;	
 print_number(++$num);
 }
+*/
+?>
+
+<!-------------- Program to print 1 to 100 without any loop Ends Here --------->
+
+<!----------- Program to print fibonacci Series ----------->
+
+<?php 
+/*
+$a = 0;
+$b = 1;
+echo $a.'&nbsp';
+echo $b.'&nbsp';
+
+for($i=0;$i<=10;$i++)
+{
+$c = $a + $b;
+$a = $b;
+$b = $c;
+
+echo $c.'&nbsp';
+
+}
+*/
+?>
+<!-- Program to print fibonacci Series Ends Here-->
+
+<!-- Program for Factorial of the number-->
+<?php
+/*
+$number = 6;                   
+$fact   = 1;
+for($k=1;$k<=$number;++$k)    
+	  {
+		 $fact =  $fact*$k;
+	  }
+echo "Factorial of $number is ".$fact;
+*/
 
 ?>
 
-<!-- Program to print 1 to 100 without any loop Ends Here -->
+<!-- Program for Factorial of the number Ends here-->
+<?php
+for($i=10;$i>=1;--$i)
+	{
+		for($j=$i;$j<=2*$i-1;++$j)
+		{
+			echo " * ";
+		}
+		echo "<br />";
 
+	}
 
-
-
-
-
-
+?>
 </body>
 </html
