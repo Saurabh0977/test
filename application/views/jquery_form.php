@@ -14,7 +14,7 @@
 						<!-- Basic layout-->
 						<div class="card">
 							<div class="card-header header-elements-inline">
-								<h5 class="card-title">Basic layout
+								<h5 class="card-title">Jquery Form Submit
 								<span><a href="<?php echo base_url(); ?>Main/user_details" type="button">User Details</a></span>
 								<span><a href="<?php echo base_url(); ?>Main/user_details" type="button">Users limit</a></span>
 
@@ -24,7 +24,7 @@
 							</div>
 
 							<div class="card-body">
-					<form action="<?php echo base_url(); ?>Main/create_user" method="post" id="myForm" enctype="multipart/form-data">
+					<form id="formhide" action="<?php echo base_url(); ?>Main/create_user" method="post" enctype="multipart/form-data">
 									<div class="form-group">
 										<label>Name</label>
 										<input type="text" name="name" class="form-control">
@@ -33,12 +33,6 @@
 									<div class="form-group">
 										<label>Product Name</label>
 										<input type="text" name="p_name" class="form-control">
-									</div>
-
-							
-							<div class="form-group">
-										<label>Quantity</label>
-										<input type="text" name="qty" class="form-control">
 									</div>
 
 									<div class="form-group">
@@ -66,7 +60,16 @@
 									</div>
 								</form>
 							</div>
-						</div>
+                        </div>
+                       <!---  Practice --->
+                       
+                       <div>
+
+                           <p id="para"><a id="link" href="www.google.com" >Hello</a></p>
+                            <button id="btn">Click to Change</button>
+
+                        </div>
+
 						<!-- /basic layout -->
 						</div>
 					</div>
@@ -87,7 +90,7 @@
 
            i++;  
 
-           $('#dynamic_field').append('<tr id="row'+i+'"><td><input type="file" name="userfile[]" class="form-control " multiple="" /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">Delete</button></td></tr>');  
+           $('#dynamic_field').append('<tr id="row'+i+'" class="dynamic-added"><td><input type="file" name="userfile[]" class="form-control name_list" multiple="" /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">Delete</button></td></tr>');  
 
       });
 
@@ -136,11 +139,20 @@
    });
 			*/
 
+</script>
 
-$(document).ready(function(){
-$("#submit").click(function(){
-$("#myForm").submit();  // jQuey's submit function applied on form.
+
+<script>
+var jq = $.noConflict();
+jq(document).ready(function()
+{
+    jq("#btn").click(function(){
+        jq("#link").prepend("HELLO");
+    });
+   
 });
-});
+
+
+
 
 </script>

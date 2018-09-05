@@ -21,7 +21,16 @@ class Main extends CI_Controller {
 	public function index()
 	{
 		$data['message'] = "";
-		$this->load->view('program_view' , $data);
+		$this->load->model('model_user');
+		$data['user'] = $this->model_user->distinct_values(); 
+		
+		//die();
+		
+		//$output = implode(" ", $result);
+		//echo $output;
+		
+
+		$this->load->view("list", $data);
 	}
 
 	public function user_details()
@@ -37,6 +46,7 @@ class Main extends CI_Controller {
 	{
 		$name = $this->input->post('name');
 		$p_name = $this->input->post('p_name');
+		$qty = $this->input->post('qty'); 
 	/*****************  Code For Uploading Multiple Images ****************/
 
 		 $name_array = array();
@@ -106,6 +116,7 @@ class Main extends CI_Controller {
 			$userid = $this->model_user->create_user($name,$names);
 
 			$this->model_user->product_details($userid,$p_name);
+			$this->model_user->stock_detail($userid,$p_name,$qty);
 			$data['message'] = "<strong>Data has Been inserted Succesfully</Strong>";
 			$this->load->view('form_view' , $data);
 

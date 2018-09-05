@@ -99,6 +99,7 @@ echo "Factorial of $number is ".$fact;
 
 <!-- Program for Factorial of the number Ends here-->
 <?php
+/*
 for($i=10;$i>=1;--$i)
 	{
 		for($j=$i;$j<=2*$i-1;++$j)
@@ -108,7 +109,328 @@ for($i=10;$i>=1;--$i)
 		echo "<br />";
 
 	}
+*/
+?>
+
+<!--   
+
+1 5 9
+2 6 10
+3 7 11
+4 8 12
+-->
+
+
+<?php 
+/*
+for($i=1;$i<=4;$i++)
+{
+$i1 = $i + 4;
+$i2 = $i + 8;
+echo $i." " . $i1 ." " . $i2;
+echo "<br />" ;
+}
+*/
+?>
+
+<!-- Ends Here-->
+
+<?php 
+/*
+for($i=1;$i<=10;$i++)
+{
+	for($j=1;$j<=11-$i;$j++)
+	{
+	  echo "* ";
+	}
+	
+	  echo "<br />";
+}
+*/
+?>
+
+<!--  
+
+1
+23
+456
+78910
+1112131415
+
+-->
+<?php /*
+$a = 1;
+for($r=1;$r<=5;$r++)
+{
+	for($c=1;$c<=$r;$c++)
+{
+	echo "$a";
+	$a++;
+}
+	
+	echo "<br/>";
+}
+*/
+?>
+<!-- Ends Here-->
+
+<!--     
+
+* * * * * * * * * * * * * * * * * * * 
+* * * * * * * * * * * * * * * * * 
+* * * * * * * * * * * * * * * 
+* * * * * * * * * * * * * 
+* * * * * * * * * * * 
+* * * * * * * * * 
+* * * * * * * 
+* * * * * 
+* * * 
+* 
+
+
+ -->
+
+<?php
+/*
+for($i=10;$i>=1;--$i)
+     {
+        
+         for($j=$i;$j<=2*$i-1;++$j)
+           echo "* ";
+         for($j=0;$j<$i-1;++$j)
+             echo "* ";
+         echo "<br />";
+     }
+*/
+?>
+
+<!-- Ends Here-->
+
+<!--   
+
+*0
+***00
+******000
+**********0000
+***************00000
+
+-->
+
+
+<?php
+/*
+$k = 0;
+
+for ($i=1; $i<=5; $i++)
+{
+    $k += $i;
+    for ($j=1; $j<=$k; $j++)
+    {   
+       echo "*";
+    }
+        for ($z=0; $z<$i; $z++)
+            {
+                echo "0";
+            }       
+
+    echo "</br>";    
+
+}
+*/
+?>
+
+<!-- Ends Here-->
+
+<!-- Program to Print Reverse of any number -->
+
+<?php
+/*
+$num  = 4567;
+$reverse = 0;
+
+while($num>1)
+{
+	$remainder = $num % 10 ;
+	$reverse = $reverse * 10 + $remainder;
+	$num = $num / 10 ;
+}
+echo $reverse;
+*/
 
 ?>
+<!-- Program to Print Reverse of any number Ends Here -->
+
+<!-- 
+
+*****
+*      *
+*      *
+*      *
+*****
+
+
+-->
+
+<?php
+/*
+for($i = 1; $i<=5; $i++){
+
+            for($j = 1; $j<=5; $j++){
+
+               if($i == 1 || $i == 5){
+
+                   echo "*";
+
+               }
+
+               else if($j == 1 || $j == 5){
+
+                   echo "*";
+
+               }
+
+               else {
+
+                   echo "&nbsp;&nbsp;";
+
+               }
+
+                
+
+            }
+
+            echo "<br/>";
+
+		}
+*/
+?>
+<!-- Ends Here--> 
+
+<!--  
+
+*****
+*****
+*****
+*****
+*****
+
+-->
+<?php 
+/*
+for($i=1;$i<=5;$i++)
+{
+	for($j=1;$j<=5;$j++)
+	{
+		echo "*";
+	}
+	echo "<br/>";
+}
+*/
+?>
+<!--  Ends Here -->
+
+<!--   Swapping of two numbers with threee variables-->
+<?php
+/*
+$a=10;
+$b=20;
+
+echo "Value of a: $a</br>";
+echo "Value of b: $b</br>";
+
+$temp=$a;
+$a=$b;
+$b=$temp;
+
+echo "Value of a: $a</br>";
+echo "Value of b: $b</br>";
+*/
+?>
+
+<!-- Ends Here  -->
+
+<!-- Swapping of two numbers without 3rd variable  -->
+
+<?php
+/*
+$a=10;
+$b=20;
+
+echo "Value of a: $a</br>";
+echo "Value of b: $b</br>";
+
+$a=$a+$b;
+$b=$a-$b;
+$a=$a-$b;
+
+echo "Value of a: $a</br>";
+echo "Value of b: $b</br>";
+*/
+?>
+
+<!--  Ends Here-->
+
+<!--   
+
+AAAAA
+BBBB
+CCC
+DD
+E
+-->
+<?php
+/*
+
+$letters = range('A', 'Z');
+for($i=0; $i<5; $i++)
+{ 
+  for($j=1; $j<=5-$i; $j++)
+{
+    echo $letters[$i];
+	}
+	echo "<br />";
+}
+
+*/	
+
+?>
+
+<!--  Ends here --->
+
+<!--   
+
+A
+BB
+CCC
+DDDD
+EEEEE
+-->
+<?php
+/*
+
+$letters = range('A', 'Z');
+for($i=0; $i<=5; $i++)
+{ 
+  for($j=0; $j<=$i; $j++)
+{
+    echo $letters[$i];
+    }
+    echo "<br>";
+}
+*/
+
+
+?>
+
+<!--  Ends here --->
+
+<?php
+
+$a = array("first" , "second" , "third" , "first" );
+$b = array("fourth"  , "five" , "six");
+ 
+print_r (each($a));
+?>
+
 </body>
 </html
