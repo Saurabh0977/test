@@ -48,4 +48,29 @@ class Model_user extends CI_Model {
 		$query =  $this->db->query("SELECT DISTINCT(NAME), COUNT(NAME) AS COUNTER FROM `users` GROUP BY NAME HAVING COUNT(NAME) > 0");
 		return $query->result();
 	}
+
+	public function insert_into_employee($id)
+	{
+		
+		$otherdb = $this->load->database('otherdb', TRUE);
+			
+	}
+/*
+	public function employeeList()
+	{
+		$this->load->database();
+		$this->db->select(array('e.ID' , 'e.NAME' , 'e.PHONE' , 'e.EMAIL' , 'e.STATUS'));
+		$this->db->from('employee as e');
+		$query = $this->db->get();
+		return $query->result_array();
+
+	}
+*/
+	public function employeeList()
+	{
+		$this->load->database();
+		$query = $this->db->query("SELECT * FROM `employee` LEFT JOIN `address` ON `address`.`ID` = `employee`.`ID` LEFT JOIN `department` ON `department`.`ID` = `employee`.`ID` ");
+		return $query->result();
+	}
+
 }

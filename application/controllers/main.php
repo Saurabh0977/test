@@ -21,8 +21,8 @@ class Main extends CI_Controller {
 	public function index()
 	{
 		$data['message'] = "";
-		$this->load->model('model_user');
-		$data['user'] = $this->model_user->distinct_values(); 
+		//$this->load->model('model_user');
+		//$data['user'] = $this->model_user->distinct_values(); 
 		
 		//die();
 		
@@ -30,7 +30,7 @@ class Main extends CI_Controller {
 		//echo $output;
 		
 
-		$this->load->view("list", $data);
+		$this->load->view("csv_view");
 	}
 
 	public function user_details()
@@ -201,6 +201,100 @@ class Main extends CI_Controller {
  {
 	 $this->load->view('database_value_view');
  }
+
+ public function upload_csv()
+ {
+	 
+
+	 // CODE TO UPLOAD SINGLE IMAGE TO DATABASE 
+
+	 $config = array(
+		 'upload_path' => './uploads/',
+		 'allowed_types' => 'xls|csv',
+		 'remove_spaces' => 'TRUE',
+		 'max_size' => '0',
+		 'overwrite' => FALSE
+	 );
+
+
+
+
+	 $this->load->library('upload',$config);
+	 if($_FILES['userfile']['name'] != '') {
+		 $filename = $_FILES['userfile']['name'];
+		 $filename_array = explode(".", $filename);
+		 $extension = end($filename_array);
+		 $newname = md5(uniqid(rand(),true));
+		 $newname_f = $newname . "." . $extension;
+		 $_FILES['userfile']['name'] = $newname_f;
+		 if($this->upload->do_upload('userfile')) {
+			 
+			 $data = $this->upload->data();
+			 @chmod($data['full_path'],0777);
+
+			 $this->load->library('Spreadsheet_Excel_Reader');
+			 $this->spreadsheet_excel_reader->setOutputEncoding('CP1251');
+
+			 $this->spreadsheet_excel_reader->read($data['full_path']);
+			 
+			 $sheets = $this->spreadsheet_excel_reader->sheets[0];
+			 error_reporting(0);
+			 $data_excel = array();
+			 for ($i = 2; $i <= $sheets['numRows']; $i++) {
+				 //if($sheets['cells'][$i][1] == '') break;
+
+				 $data_employee[$i - 1]['ID'] =  $sheets['cells'][$i][1];				 
+				 $data_employee[$i - 1]['NAME'] =  $sheets['cells'][$i][2];
+				 $data_employee[$i - 1]['PHONE'] =  $sheets['cells'][$i][3];
+				 $data_employee[$i - 1]['EMAIL'] =  $sheets['cells'][$i][4];
+				 $data_employee[$i - 1]['STATUS'] =  $sheets['cells'][$i][5];
+				 
+				 $data_department[$i - 1]['ID'] =  $sheets['cells'][$i][1];
+				 $data_department[$i - 1]['EMP_ID'] =  $sheets['cells'][$i][6];
+				 $data_department[$i - 1]['DEP_TITLE'] =  $sheets['cells'][$i][7];
+				 $data_department[$i - 1]['DEP_MANAGER'] =  $sheets['cells'][$i][8];
+
+				 $data_address[$i - 1]['ID'] =  $sheets['cells'][$i][1];
+				 $data_address[$i - 1]['EMP_ID'] =  $sheets['cells'][$i][6];
+				 $data_address[$i - 1]['POSTAL_ADDRESS'] =  $sheets['cells'][$i][9];
+				 $data_address[$i - 1]['PERMANENT_ADDRESS'] =  $sheets['cells'][$i][10];
+
+			 }
+
+			 $this->load->database();
+			 
+			 $this->db->from('employee');
+			 $this->db->from('department');
+			 $this->db->from('address');
+			  
+			 $this->db->truncate();
+			 
+			 $this->db->insert_batch('employee',$data_employee);
+			 
+			 $this->db->insert_batch('department',$data_department);
+			 $this->db->insert_batch('address',$data_address);
+			 
+
+		 } else {
+			  $errors = $this->upload->display_errors();
+			  var_dump($errors);
+		 }
+	 } else {
+		 $newname_f = "";
+	 }
+
+	 //   **********  END  *****************
+	 
+		 //$this->load->model('model_admin');
+		 //$this->model_admin->upload_data($newname_f);
+
+
+
+
+	 }
+
+	 
+
 
 
 }
