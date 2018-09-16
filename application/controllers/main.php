@@ -44,8 +44,10 @@ class Main extends CI_Controller {
 	public function user_details()
 	{
 
+		$this->load->model('model_user');
+		//$data['high'] = $this->model_user->fetch_highest_value();
+		$data['high'] = $this->model_user->get_result_from_other_database();
 		
-		$data['high'] = $this->model_user->fetch_highest_value();
 		$data['user'] = $this->model_user->fetch_user_details();
 		$this->load->view('users_list' ,$data);
 	}
@@ -132,6 +134,15 @@ class Main extends CI_Controller {
 	/*****************  Saving Into database code for Multiple Image Ends Here *********************/		
 
 	
+	}
+
+	public function create_user_by_ajax()
+	{
+		$name = $this->input->post('name');
+
+		$this->model_user->add_user_by_ajax($name);
+
+
 	}
 
 

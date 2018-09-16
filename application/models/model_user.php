@@ -82,4 +82,18 @@ class Model_user extends CI_Model {
 		return $query->result();
 	}
 
+	public function add_user_by_ajax($name)
+	{
+		$this->load->database();
+		$this->db->query("INSERT INTO `users` ( NAME )  VALUES ('$name') ");
+	}
+
+	public function get_result_from_other_database()
+	{
+		$otherdb = $this->load->database('otherdb', TRUE);
+		$query  = $otherdb->query("SELECT * FROM `users`");
+		return $query->result();
+	}
+
+
 }

@@ -46,7 +46,7 @@
         <tr>
             
             <td><?php ?></td>
-            <td><?php echo $value->EMP_ID; ?></td>
+            <td><?php echo $value->NAME; ?></td>
 
                 
         </tr>
