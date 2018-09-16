@@ -31,6 +31,31 @@
 
 
 </table>
+<table>
+    <thead>
+        <th>Second Highest Quantity</th>
+    </thead>
+    <tbody>
+        <?php
+
+            foreach($high as $value)
+            {
+               //var_dump($high);
+               //die();
+        ?>
+        <tr>
+            
+            <td><?php ?></td>
+            <td><?php echo $value->EMP_ID; ?></td>
+
+                
+        </tr>
+        <?php 
+            }
+        ?>
+
+    </tbody>
+</table>
 
 
 </body>

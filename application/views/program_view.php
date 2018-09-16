@@ -422,14 +422,11 @@ for($i=0; $i<=5; $i++)
 
 ?>
 
-<!--  Ends here --->
+<!--  Ends here -->
+<?php 
 
-<?php
-
-$a = array("first" , "second" , "third" , "first" );
-$b = array("fourth"  , "five" , "six");
- 
-print_r (each($a));
+$a1 = array_fill(2,4,"blue");
+print_r ($a1);
 ?>
 
 </body>

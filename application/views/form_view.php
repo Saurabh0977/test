@@ -17,28 +17,30 @@
 								<h5 class="card-title">Basic layout
 								<span><a href="<?php echo base_url(); ?>Main/user_details" type="button">User Details</a></span>
 								<span><a href="<?php echo base_url(); ?>Main/user_details" type="button">Users limit</a></span>
+								<span><a href="<?php echo base_url(); ?>Main/send_mail" type="button">Send Mail</a></span>
+
 
 							</h5>
 								
-								<span><?php echo $message ; ?></span>
+							<!--	<span><?php //echo $message ; ?></span> -->
 							</div>
 
 							<div class="card-body">
-					<form action="<?php echo base_url(); ?>Main/create_user" method="post" id="myForm" enctype="multipart/form-data">
+					<form method="post" enctype="multipart/form-data" action="<?php echo base_url(); ?>Main/create_user">
 									<div class="form-group">
 										<label>Name</label>
-										<input type="text" name="name" class="form-control">
+										<input type="text" id="name" name="name" class="form-control">
 									</div>
 
 									<div class="form-group">
 										<label>Product Name</label>
-										<input type="text" name="p_name" class="form-control">
+										<input type="text" id="p_name" name="p_name" class="form-control">
 									</div>
 
 							
 							<div class="form-group">
 										<label>Quantity</label>
-										<input type="text" name="qty" class="form-control">
+										<input type="text" id="qty" name="qty" class="form-control">
 									</div>
 
 									<div class="form-group">
@@ -49,7 +51,7 @@
 										</thead>		
 										<tbody>
 											<tr>
-											<td><input type="file" name="userfile[]" multiple="" class="form-control"/></td>
+											<td><input type="file" id="userfile[]" name="userfile[]" multiple="" class="form-control"/></td>
 
 												 <td><button type="button" name="add" id="add" class="btn btn-success">Add More</button></td>
 
@@ -63,6 +65,7 @@
 
 									<div class="text-right">
 										<button type="submit" name="submit" id="submit" class="btn btn-primary">Submit form <i class="icon-paperplane ml-2"></i></button>
+										
 									</div>
 								</form>
 							</div>
@@ -136,11 +139,31 @@
    });
 			*/
 
+/***************** Submit form using Ajax with Variables defined with ID *****************
 
-$(document).ready(function(){
-$("#submit").click(function(){
-$("#myForm").submit();  // jQuey's submit function applied on form.
+$(document).ready(function()
+{
+	$('#myForm').submit(function(event)
+	{
+
+		var name = $("#name").val();
+		var p_name = $("#p_name").val();
+		var qty = $("#qty").val();
+		var userfile = $("#userfile").val();
+		
+		
+	$.ajax({
+		url  : '<?php //echo base_url(); ?>Main/create_user',
+		data : '&name=' + name + '&p_name=' + p_name + '&qty=' + qty ,
+		type : 'POST',
+
+	});
+
+
+	});
+
 });
-});
+*/
+
 
 </script>

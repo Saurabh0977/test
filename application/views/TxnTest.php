@@ -14,7 +14,7 @@
 	<h1>Merchant Check Out Page</h1>
 	<pre>
 	</pre>
-	<form method="post" action="paytmpost">
+	<form method="post" action="<?php echo base_url();  ?>Main/startpayment">
 		<table border="1">
 			<tbody>
 				<tr>

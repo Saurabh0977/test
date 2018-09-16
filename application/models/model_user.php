@@ -73,4 +73,13 @@ class Model_user extends CI_Model {
 		return $query->result();
 	}
 
+	public function fetch_highest_value()
+	{
+		$this->load->database();
+		//$query = $this->db->query("SELECT MAX(EMP_ID) AS VAL FROM `department` WHERE EMP_ID IN (SELECT MAX(EMP_ID) FROM `department`) ");
+		$query = $this->db->query("SELECT * FROM `department` WHERE DEP_MANAGER LIKE '%D' ");
+		//$query = $this->db->query("SELECT DEP_TITLE,COUNT(DEP_TITLE) AS TOTAL FROM `department` GROUP BY DEP_TITLE  ");
+		return $query->result();
+	}
+
 }

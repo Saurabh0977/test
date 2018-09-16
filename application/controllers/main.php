@@ -1,8 +1,16 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+require_once(APPPATH . "/third_party/paytmlib/config_paytm.php");
+ require_once(APPPATH . "/third_party/paytmlib/encdec_paytm.php");
+
 class Main extends CI_Controller {
 
+	public function __construct()
+	{
+		parent:: __construct();
+		$this->load->model('model_user');
+	}
 	/**
 	 * Index Page for this controller.
 	 *
@@ -30,13 +38,14 @@ class Main extends CI_Controller {
 		//echo $output;
 		
 
-		$this->load->view("csv_view");
+		$this->load->view("form_view");
 	}
 
 	public function user_details()
 	{
 
-		$this->load->model('model_user');
+		
+		$data['high'] = $this->model_user->fetch_highest_value();
 		$data['user'] = $this->model_user->fetch_user_details();
 		$this->load->view('users_list' ,$data);
 	}
@@ -112,7 +121,7 @@ class Main extends CI_Controller {
 			
 	/*****************  Saving Into database code for Multiple Image *********************/		
 
-			$this->load->model('model_user');
+			//$this->load->model('model_user');
 			$userid = $this->model_user->create_user($name,$names);
 
 			$this->model_user->product_details($userid,$p_name);
@@ -132,70 +141,105 @@ class Main extends CI_Controller {
 	}
 
 
+	public function PaytmGateway()
+    {
+        $orderId = 108	; /// must be unique
+      $this->StartPayment($orderId);
+    }
 
-
-	function paytmpost()
+public function startpayment()
 {
- header("Pragma: no-cache");
- header("Cache-Control: no-cache");
- header("Expires: 0");
+ 
 
- // following files need to be included
- require_once(APPPATH . "/third_party/paytmlib/config_paytm.php");
- require_once(APPPATH . "/third_party/paytmlib/encdec_paytm.php");
+	header("Pragma: no-cache");
+	header("Cache-Control: no-cache");
+	header("Expires: 0");
+   
+	// following files need to be included
+	require_once(APPPATH . "/third_party/paytmlib/config_paytm.php");
+	require_once(APPPATH . "/third_party/paytmlib/encdec_paytm.php");
+   
+	$checkSum = "";
+	$paramList = array();
+   
+	$ORDER_ID = $_POST["ORDER_ID"];
+	$CUST_ID = $_POST["CUST_ID"];
+	$INDUSTRY_TYPE_ID = $_POST["INDUSTRY_TYPE_ID"];
+	$CHANNEL_ID = $_POST["CHANNEL_ID"];
+	$TXN_AMOUNT = $_POST["TXN_AMOUNT"];
 
- $checkSum = "";
- $paramList = array();
-
- $ORDER_ID = $_POST["ORDER_ID"];
- $CUST_ID = $_POST["CUST_ID"];
- $INDUSTRY_TYPE_ID = $_POST["INDUSTRY_TYPE_ID"];
- $CHANNEL_ID = $_POST["CHANNEL_ID"];
- $TXN_AMOUNT = $_POST["TXN_AMOUNT"];
-
-// Create an array having all required parameters for creating checksum.
- $paramList["MID"] = PAYTM_MERCHANT_MID;
+	
+	$paramList["MID"] = PAYTM_MERCHANT_MID;
  $paramList["ORDER_ID"] = $ORDER_ID;
  $paramList["CUST_ID"] = $CUST_ID;
  $paramList["INDUSTRY_TYPE_ID"] = $INDUSTRY_TYPE_ID;
  $paramList["CHANNEL_ID"] = $CHANNEL_ID;
  $paramList["TXN_AMOUNT"] = $TXN_AMOUNT;
  $paramList["WEBSITE"] = PAYTM_MERCHANT_WEBSITE;
+ 
 
- /*
- $paramList["MSISDN"] = $MSISDN; //Mobile number of customer
- $paramList["EMAIL"] = $EMAIL; //Email ID of customer
- $paramList["VERIFIED_BY"] = "EMAIL"; //
- $paramList["IS_USER_VERIFIED"] = "YES"; //
+ 		$paramList["CALLBACK_URL"] = "http://127.0.0.1/test/Main/PaytmResponse";
+        $paramList["MSISDN"] = '7777777777'; //Mobile number of customer
+        $paramList["EMAIL"] ='saurabhkumar0977@gmail.com';
+        $paramList["VERIFIED_BY"] = "EMAIL"; //
+        $paramList["IS_USER_VERIFIED"] = "YES"; //
+	   
+		$checkSum = getChecksumFromArray($paramList,PAYTM_MERCHANT_KEY);
+		echo "<html>
+	   <head>
+	   <title>Merchant Check Out Page</title>
+	   </head>
+	   <body>
+		   <center><h1>Please do not refresh this page...</h1></center>
+			   <form method='post' action='".PAYTM_TXN_URL."' name='f1'>
+	   <table border='1'>
+		<tbody>";
+	   
+		foreach($paramList as $name => $value) {
+		echo '<input type="hidden" name="' . $name .'" value="' . $value .         '">';
+		}
+	   
+		echo "<input type='hidden' name='CHECKSUMHASH' value='". $checkSum . "'>
+		</tbody>
+	   </table>
+	   <script type='text/javascript'>
+		document.f1.submit();
+	   </script>
+	   </form>
+	   </form>
+	   </body>
+	   </html>";
+		} 
+	   
+ public function PaytmResponse()
+ {
+	 $paytmChecksum = "";
+	 $paramList = array();
+	 $isValidChecksum = "FALSE";
 
- */
-
-//Here checksum string will return by getChecksumFromArray() function.
- $checkSum = getChecksumFromArray($paramList,PAYTM_MERCHANT_KEY);
- echo "<html>
-<head>
-<title>Merchant Check Out Page</title>
-</head>
-<body>
-    <center><h1>Please do not refresh this page...</h1></center>
-        <form method='post' action='".PAYTM_TXN_URL."' name='f1'>
-<table border='1'>
- <tbody>";
-
- foreach($paramList as $name => $value) {
- echo '<input type="hidden" name="' . $name .'" value="' . $value .         '">';
+	 $paramList = $_POST;
+	 echo "<pre>";
+	 print_r($paramList);
+  
+//        $paytmChecksum = isset($_POST["CHECKSUMHASH"]) ? $_POST["CHECKSUMHASH"] : ""; //Sent by Paytm pg
+//
+//        $isValidChecksum = verifychecksum_e($paramList, PAYTM_MERCHANT_KEY, $paytmChecksum); //will return TRUE or FALSE string.
+//
+//        if($isValidChecksum == "TRUE")
+//        {
+//            if ($_POST["STATUS"] == "TXN_SUCCESS")
+//            { /// put your to save into the database // tansaction successfull
+//                var_dump($paramList);
+//            }
+//            else {/// failed
+//                var_dump($paramList);
+//            }
+//        }else
+//        {//////////////suspicious
+//           // put your code here
+//         
+//        }
  }
-
- echo "<input type='hidden' name='CHECKSUMHASH' value='". $checkSum . "'>
- </tbody>
-</table>
-<script type='text/javascript'>
- document.f1.submit();
-</script>
-</form>
-</body>
-</html>";
- } 
 
  public function database_queries()
  {
@@ -292,6 +336,39 @@ class Main extends CI_Controller {
 
 
 	 }
+
+	 public function send_mail()
+    {
+        $config = Array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'testmail0977@gmail.com', // change it to yours
+            'smtp_pass' => 'testmail0977!@', // change it to yours
+            'mailtype' => 'html',
+            'charset' => 'iso-8859-1',
+            'wordwrap' => TRUE
+          );
+          
+                  $message = '';
+                  $this->load->library('email', $config);
+                $this->email->set_newline("\r\n");
+                $this->email->from('testmail0977@gmail.com'); // change it to yours
+                $this->email->to('testmail0977@gmail.com');// change it to yours
+                $this->email->subject('Resume from JobsBuddy for your Job posting');
+                $this->email->message($message);
+                if($this->email->send())
+               {
+                echo 'Email sent.';
+               }
+               else
+              {
+               show_error($this->email->print_debugger());
+              }
+          
+          
+
+    }
 
 	 
 
