@@ -38,15 +38,15 @@
     <tbody>
         <?php
 
-            foreach($high as $value)
+           foreach($high as $value)
             {
-               //var_dump($high);
+              // var_dump($high);
                //die();
         ?>
         <tr>
             
             <td><?php ?></td>
-            <td><?php echo $value->NAME; ?></td>
+            <td><?php echo $value->ID; ?></td>
 
                 
         </tr>

@@ -9,6 +9,9 @@ class Main extends CI_Controller {
 	public function __construct()
 	{
 		parent:: __construct();
+
+		
+
 		$this->load->model('model_user');
 	}
 	/**
@@ -38,8 +41,54 @@ class Main extends CI_Controller {
 		//echo $output;
 		
 
-		$this->load->view("form_view");
+		$this->load->view("testing");
 	}
+
+	public function login_form()
+	{
+		$this->load->view('login');
+	}
+	public function signup_form()
+	{
+
+		$this->load->view('signup_view');
+	}
+
+	public function new_user()
+	{
+		$uname = $this->input->post("uname");
+		$pass = $this->input->post("pass");
+		$phone = $this->input->post("phone");
+		
+		$intermediatesalt = md5(uniqid(rand(),true));
+			$salt = substr($intermediatesalt, 0 ,16);
+			$hash = hash("sha256" , $pass . $salt);
+
+			$this->model_user->new_user_create($uname,$hash,$phone,$salt);
+
+
+	}
+
+	
+
+	public function logout()
+	{
+		$this->model_user->logout();
+		header('location:/test');
+	}
+
+	public function dashboard()
+	{
+		
+			if(!$this->session->userdata("is_logged_in"))
+			{
+				redirect(site_url());
+			}
+	
+		$this->load->view('form_view');
+		
+
+	}	
 
 	public function user_details()
 	{

@@ -91,8 +91,30 @@ class Model_user extends CI_Model {
 	public function get_result_from_other_database()
 	{
 		$otherdb = $this->load->database('otherdb', TRUE);
-		$query  = $otherdb->query("SELECT * FROM `users`");
+		$query  = $otherdb->query("SELECT ID FROM `users` ORDER BY ID DESC LIMIT 1 ,2");
 		return $query->result();
+	}
+
+	public function new_user_create($uname,$hash,$phone,$salt)
+	{
+		$this->load->database();
+		$query = $this->db->query("INSERT INTO `new_user` ( USERNAME , PASSWORD , PHONE , SALT) VALUES ('$uname' , '$hash' , '$phone' , '$salt') ");
+
+	}
+
+	public function check_users()
+	{
+		$query = $this->db->query("SELECT * FROM `new_user`");
+		return $query->result();
+	}
+
+	public function logout()
+	{
+		$this->load->library('session');
+		session_destroy();
+		//$this->session->set_userdata('is_logged_id', FALSE);
+		;
+
 	}
 
 
