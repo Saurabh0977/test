@@ -18,7 +18,9 @@
 								<span><a href="<?php echo base_url(); ?>Main/user_details" type="button">User Details</a></span>
 								
 								<span><a href="<?php echo base_url(); ?>Main/send_mail" type="button">Send Mail</a></span>
+
 								<span style="float:right;"><a style="color:red" href="<?php echo base_url(); ?>Main/logout" type="button">Logout</a></span>
+								<span><h5 style="float:right;">Welcome Back&nbsp;<?php echo ucfirst($this->session->userdata('uname')); ?> </h5></span>
 
 
 							</h5>

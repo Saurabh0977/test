@@ -46,7 +46,7 @@
         <tr>
             
             <td><?php ?></td>
-            <td><?php echo $value->ID; ?></td>
+            <td><?php echo $value->AMOUNT; ?></td>
 
                 
         </tr>

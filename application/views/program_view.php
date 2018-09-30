@@ -424,9 +424,13 @@ for($i=0; $i<=5; $i++)
 
 <!--  Ends here -->
 <?php 
+$i = 10;
+$j = $i++;
 
-$a1 = array_fill(2,4,"blue");
-print_r ($a1);
+echo $i."<br/>";
+echo $j;
+
+
 ?>
 
 </body>

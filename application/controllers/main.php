@@ -53,6 +53,15 @@ class Main extends CI_Controller {
 
 		$this->load->view('signup_view');
 	}
+	public function submitdetails()
+	{
+		
+		$uname = $this->input->post("uname");
+		//$phone = $this->input->post("phone");
+		var_dump($uname);
+		die();
+		//var_dump($phone);
+	}
 
 	public function new_user()
 	{
@@ -61,9 +70,15 @@ class Main extends CI_Controller {
 		$phone = $this->input->post("phone");
 		
 		$intermediatesalt = md5(uniqid(rand(),true));
-			$salt = substr($intermediatesalt, 0 ,16);
-			$hash = hash("sha256" , $pass . $salt);
+		//var_dump($intermediatesalt);
+		//die();
+		$salt = substr($intermediatesalt, 0 ,16);
+		//var_dump($salt);
+		//die();
 
+		$hash = hash("sha256" , $pass . $salt);
+		//var_dump($hash);
+		//die();
 			$this->model_user->new_user_create($uname,$hash,$phone,$salt);
 
 

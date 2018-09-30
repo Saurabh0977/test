@@ -31,7 +31,7 @@ class Model_user extends CI_Model {
 	public function fetch_user_details()
 	{
 		$this->load->database();
-		$query = $this->db->query("SELECT * FROM `users` LEFT JOIN `product` ON  `product`.`USER_ID`=`users`.`ID` LEFT JOIN `stock` ON stock.STOCK_ID = product.USER_ID ");
+		$query = $this->db->query("SELECT * FROM `users`  JOIN `stock` ON `stock`.`STOCK_ID` = `users`.`ID` ");
 		
 		
 		//	$this->db->select("*");
@@ -39,6 +39,7 @@ class Model_user extends CI_Model {
 		
 		//$this->db->join('product','product.USER_ID=users.ID');
 		//$query = $this->db->get();
+		var_dump(print_r($query->result()));
 		return $query->result();		
 		
 	}
@@ -91,7 +92,7 @@ class Model_user extends CI_Model {
 	public function get_result_from_other_database()
 	{
 		$otherdb = $this->load->database('otherdb', TRUE);
-		$query  = $otherdb->query("SELECT ID FROM `users` ORDER BY ID DESC LIMIT 1 ,2");
+		$query  = $otherdb->query("SELECT AMOUNT FROM `money` ORDER BY AMOUNT DESC LIMIT 2,1");
 		return $query->result();
 	}
 
@@ -102,9 +103,9 @@ class Model_user extends CI_Model {
 
 	}
 
-	public function check_users()
+	public function check_users($username)
 	{
-		$query = $this->db->query("SELECT * FROM `new_user`");
+		$query = $this->db->query("SELECT * FROM `new_user` WHERE USERNAME= '$username' ");
 		return $query->result();
 	}
 
