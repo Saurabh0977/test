@@ -41,7 +41,7 @@ class Main extends CI_Controller {
 		//echo $output;
 		
 
-		$this->load->view("testing");
+		$this->load->view("form_view");
 	}
 
 	public function login_form()
