@@ -423,12 +423,14 @@ for($i=0; $i<=5; $i++)
 ?>
 
 <!--  Ends here -->
-<?php 
-$i = 10;
-$j = $i++;
 
-echo $i."<br/>";
-echo $j;
+
+
+<?php 
+
+
+
+
 
 
 ?>

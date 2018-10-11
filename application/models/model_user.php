@@ -31,15 +31,18 @@ class Model_user extends CI_Model {
 	public function fetch_user_details()
 	{
 		$this->load->database();
-		$query = $this->db->query("SELECT * FROM `users`  JOIN `stock` ON `stock`.`STOCK_ID` = `users`.`ID` ");
-		
+		$query = $this->db->query("SELECT * FROM `users`  RIGHT JOIN `stock` ON `users`.`ID` = `stock`.`STOCK_ID`  ");
+		//$query = $this->db->query("SELECT NAME FROM `users` WHERE CREATED_AT LIKE '_____01%' ");
+		//$query = $this->db->query("SELECT NAME FROM `users` UNION ALL SELECT PRODUCT_NAME FROM `stock`");
+		//$query = $this->db->query("SELECT DISTINCT(QUANTITY) AS QTY FROM `stock` ORDER BY QUANTITY DESC");
+		//print_r ($query->result());
 		
 		//	$this->db->select("*");
 	//	$this->db->from('users');
 		
 		//$this->db->join('product','product.USER_ID=users.ID');
 		//$query = $this->db->get();
-		var_dump(print_r($query->result()));
+		//var_dump(print_r($query->result()));
 		return $query->result();		
 		
 	}
@@ -47,7 +50,7 @@ class Model_user extends CI_Model {
 	{
 		$this->load->database();
 		$query =  $this->db->query("SELECT DISTINCT(NAME), COUNT(NAME) AS COUNTER FROM `users` GROUP BY NAME HAVING COUNT(NAME) > 0");
-		return $query->result();
+		return $query->result();			
 	}
 
 	public function insert_into_employee($id)
@@ -92,7 +95,7 @@ class Model_user extends CI_Model {
 	public function get_result_from_other_database()
 	{
 		$otherdb = $this->load->database('otherdb', TRUE);
-		$query  = $otherdb->query("SELECT AMOUNT FROM `money` ORDER BY AMOUNT DESC LIMIT 2,1");
+		$query  = $otherdb->query("SELECT * FROM `money` ORDER BY ID DESC LIMIT 0,1");
 		return $query->result();
 	}
 
@@ -115,6 +118,12 @@ class Model_user extends CI_Model {
 		session_destroy();
 		//$this->session->set_userdata('is_logged_id', FALSE);
 		;
+
+	}
+	public function add_username_by_ajax($uname)
+	{
+		$this->load->database();
+		$query = $this->db->query("INSERT INTO `users`(NAME) VALUES ('$uname') ");
 
 	}
 

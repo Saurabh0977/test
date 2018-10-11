@@ -20,9 +20,9 @@
     ?>
     <tr>
         <td><?php echo $users->ID; ?></td>
-        <td><?php echo $users->NAME; ?></td>
         <td><?php echo $users->PRODUCT_NAME; ?></td>
-        <td><?php echo $users->QUANTITY; ?></td>
+        <td><?php ?></td>
+        <td><?php  ?></td>
     </tr>
     <?php 
         }
@@ -46,7 +46,7 @@
         <tr>
             
             <td><?php ?></td>
-            <td><?php echo $value->AMOUNT; ?></td>
+            <td><?php echo $value->ID; ?></td>
 
                 
         </tr>

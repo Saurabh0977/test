@@ -1,54 +1,146 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Immortality blood</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-   
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<?php
 
-<style>
-
-.box{
-    width: 100px;
-    height: 100px;
-    background-color: red ;
-    position: absolute;
-}
-
-</style>
-
-</head>
-<body>
-
-<input  value="male" name="myradio" type="radio"><label id="chk">hello</label>
-
-<button id="btn">click Me</button>
+$hello  = array("name"=>"saurabh" , "cast"=>"kumar");
+$hello = array_flip($hello);
+$hello = (array_change_key_case($hello , CASE_UPPER));
+$hello = array_flip($hello);
+print_r ($hello);
 
 
 
-</div>
+
+
+/*** Replace Any Substring in string using limit */
+/*
+
+$str = "hello saurabh saini my name is saurabh hell is kala is";
+
+$out = preg_replace("/saurabh/" , "sarika" ,$str , 1);
+
+echo $out;
+
+/******   */
 
 
 
-</body>
-</html>
 
-<script>
 
-$(document).ready(function()
+
+
+/*
+$str = array("hello" , "saurabh" , 25 );
+
+
+//$str = preg_match("/hello/" , $str);
+
+
+/********  Method to check value Exist in an array case Sensitive *******/
+/*
+if (in_array("hello" , $str))
 {
+echo "found";
+}
+else{
+    echo "not found";
+}
+*/
 
-    $("#btn").click(function(){
+/******** Method to check value Exist in an array case Insensitive ******/
+/*
+if(preg_grep('/\bHello\b/i' , $str ))
+{
+    echo "found";
+}
+else
+{
+    echo "not found";
+}
+*/
 
-        alert($('input[name="myradio"]').prop("value" , "dsda"));
 
-    });
-        
-});
+?>
 
-</script>
+
+
+
+
+
+<?php
+/*******  Check string Exist or not in a string  **********/
+/*
+$str =  'kala saurabh';
+$str = preg_match('/Saurabh/i' , $str);
+
+if($str == TRUE)
+{
+    echo "found";
+}
+else{
+    echo "not found";
+}
+*/
+?>
+
+<?php
+/************** Other method for checking String Exist or Not in a String ***********/
+/*
+$str = "hello saurabh hello";
+$str = strpos($str , "hello");
+
+if($str !== false)
+{
+    echo "found";
+}
+else
+{
+    echo "not found";
+}
+*/
+?>
+
+
+
+<?php 
+/*******  Check value exist or not in an Array  ************/
+/*
+$hello = array("hell","saurabh","kumar");
+$hello = in_array("kumar" , $hello);
+
+if($hello == true)
+{
+    echo "Found";
+}
+else{
+    echo "not found";
+} 
+*/  
+?>
+
+
+
+<?php
+/**********    Count In string specific substring    **************/
+/*   
+
+$str = "hello saurabh sarika hello";
+$str = substr_count("$str" , "hello");
+echo $str;
+
+*/
+?>
+
+
+<?php 
+/************** Count Specific Element in array *************/
+/*
+$h = array("is" , "hello" ,"is" , "kala");
+$h = array_count_values($h);
+print_r ($h["is"]);
+*/
+
+?>
+
+
 
 
 

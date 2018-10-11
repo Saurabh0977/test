@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class User extends CI_Controller {
 
 
-    
+	
     
 
     public function login()
@@ -33,7 +33,10 @@ class User extends CI_Controller {
 	}
     }
     
-
+	public function haha()
+	{
+		echo "this is the function inside user controller";
+	}
     
 }
 

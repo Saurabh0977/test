@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+header('Access-Control-Allow-Origin: *');
 require_once(APPPATH . "/third_party/paytmlib/config_paytm.php");
  require_once(APPPATH . "/third_party/paytmlib/encdec_paytm.php");
 
@@ -41,8 +41,37 @@ class Main extends CI_Controller {
 		//echo $output;
 		
 
-		$this->load->view("form_view");
+		$this->load->view('testing');
 	}
+
+	public function ajax_upload()  
+	{  
+		$uname = $this->input->post('uname');
+		echo $uname;
+		die();
+		
+		$this->model_user->add_username_by_ajax($uname);
+		
+
+		if(isset($_FILES["file"]["name"]))  
+		 {  
+			  $config['upload_path'] = './uploads/';  
+			  $config['allowed_types'] = 'jpg|jpeg|png|gif';  
+			  $this->load->library('upload', $config);  
+			  if(!$this->upload->do_upload('file'))  
+			  {  
+				   echo $this->upload->display_errors();  
+			  }  
+			  else  
+			  {  
+				   $data = $this->upload->data();  
+				   echo '<img src="'.base_url().'uploads/'.$data["file_name"].'" width="300" height="225" class="img-thumbnail" />';  
+			  }  
+		 }  
+	} 
+
+
+
 
 	public function login_form()
 	{
@@ -53,6 +82,9 @@ class Main extends CI_Controller {
 
 		$this->load->view('signup_view');
 	}
+
+
+
 	public function submitdetails()
 	{
 		
@@ -102,11 +134,15 @@ class Main extends CI_Controller {
 	
 		$this->load->view('form_view');
 		
-
+			
 	}	
 
 	public function user_details()
 	{
+
+		//$this->load->library('customlibrary');
+		//$hell = new customlibrary();
+		//$hell->hello();
 
 		$this->load->model('model_user');
 		//$data['high'] = $this->model_user->fetch_highest_value();
